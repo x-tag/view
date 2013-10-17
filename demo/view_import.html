@@ -1,0 +1,90 @@
+
+<x-view name="reply">
+  <template>
+	<li>
+      <label>Reply by: <span class="user"></span></label>
+      <p></p>
+      <br />
+      <span class="date"></span>
+	</li>
+  </template>
+  <script type="view">
+  
+      this.addBindings({
+        'user:query(span.user)': function(value){
+          this.innerHTML = value;
+        },
+        'comment:query(div > p)': function(value){
+          this.innerHTML = value;
+        },
+        'date:query(span.date)': function(value){
+          this.innerHTML = value;
+        }
+      });
+
+  </script>
+</x-view>
+
+<x-view name="comment">
+  <template>
+    <div class="comment">
+      <label>User: <span class="user"></span></label>
+      <p></p>
+      <br />
+      <span class="date"></span>
+      <button>Update</button>
+	  <ul></ul>
+    </div>
+  </template>
+  
+  <style>
+	.comment {
+		padding: 10px;
+		border-bottom: 1px solid #999;
+	}
+	
+	.comment label {
+		font-weight: bold;
+	}
+  </style>
+  
+  <script type="view">
+  
+      this.addListeners({
+        'click:delegate(button)': function(){
+          return {
+			'comment': 'Look ma, I just updated myself!'
+		  }
+        }
+      });
+	  
+      this.addBindings({
+        'user:query(span.user)': function(value){
+          this.innerHTML = value;
+        },
+        'comment:query(div > p)': function(value){
+          this.innerHTML = value;
+        },
+        'date:query(span.date)': function(value){
+          this.innerHTML = value;
+        },
+		'replies:query(x-repeater)': function(value){
+			this.foo = value;
+		}
+      });
+
+  </script>
+</x-view>
+
+<x-view name="simple-comment">
+  <template>
+    <section>
+      <div>FOO</div>
+      <b></b>
+      <span></span>
+      <button>Clicky</button>
+    </section>
+    <ul>
+    </ul>
+  </template>
+</x-view>

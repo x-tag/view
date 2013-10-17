@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>View - X-Tag</title>
+    <link rel="stylesheet" type="text/css" href="x-tag-components.css"/>
+    <link rel="stylesheet" type="text/css" href="../src/x-view.css"/>
+	
+    <script type="text/javascript" src="x-tag-components-updated.js"></script>
+    <script type="text/javascript" src="../src/x-view.js"></script>
+	
+    <link rel="import" href="view_import.html" />
+
+  </head>
+
+<body>
+
+  <div>
+    <button onclick="switchControl('comment')">Detailed Comment Control</button>
+    <button onclick="switchControl('simple-comment')">Simple Comment Control</button>
+  </div>
+
+  <x-comment view="comment"
+    username="potch"
+    text="There are shirts with my face on them"
+    postDate="1370492364126">
+  </x-comment>
+
+  <x-comment view="comment"
+    username="dbuc"
+    text="I want an easy button"
+    postDate="1370692474326">
+  </x-comment>
+  
+  <x-comment view="comment" 
+    username="arron"
+    text="Making stuff for devs"
+    postDate="1370792584426">
+  </x-comment>
+  
+  <x-comment view="comment"
+    username="jlongster"
+    text="I will hit you with my Nunjucks"
+    postDate="1370892694726">
+  </x-comment>
+  
+  <x-comment view="comment"
+    username="wenzel"
+    text="I heart Portland"
+    postDate="1370992794926">
+  </x-comment>
+  
+  <div view="comment">
+  </div>
+
+
+</body>
+
+<script type="text/javascript">
+
+  function switchControl(name){
+    xtag.query(document, 'x-comment').forEach(function(comment){
+      comment.view = name;
+    });
+  }
+
+  xtag.register('x-comment',{
+    accessors: {
+      username: {
+        attribute: {}
+      },
+      firstName: {
+        attribute: {}
+      },
+      lastName: {
+        attribute: {}
+      },
+      text: {
+        attribute: {}
+      },
+      postDate: {
+        attribute: {}
+      }
+    }
+  });
+	
+  var bindMaps = {
+	comment: {
+		'user': 'username',
+		'comment':'text',
+		'date': {
+		  key: 'postDate',
+		  action: function(value){
+			return new Date(Number(value)).toLocaleDateString();
+		  }
+		}
+	},
+	reply: {
+		'user': 'username',
+		'comment':'text',
+		'date': {
+		  key: 'postDate',
+		  action: function(value){
+			return new Date(Number(value)).toLocaleDateString();
+		  }
+		}
+	}
+  }
+	
+  window.addEventListener('viewready', function(e){
+	var view = e.detail.view;
+	if (view.name == 'comment') view.mapProperties('x-comment', bindMaps.comment);
+  });
+
+</script>
+
+</html>

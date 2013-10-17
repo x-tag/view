@@ -1,0 +1,16 @@
+{
+  "name": "Template",
+  "description": "",
+  "version": "0.1.0",
+  "keywords": [
+    "web-components",
+    "x-tag"
+  ],
+  "main": [
+    "src/template.js",
+    "src/template.css"
+  ],
+  "dependencies": {
+    "x-tag-core": "*"
+  }
+}
